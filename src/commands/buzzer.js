@@ -1,15 +1,11 @@
 const colors = require('../colors.js')
-const newMessage = require('../message.js')
+const { buzzerMsg } = require('../message.js')
+const Player = require('../playerClass.js')
 
 const buzzer = async(msg) => {
-    class Player {
-        constructor(nick, color) {
-            this.nick = nick;
-            this.color = color
-        }
-    }
-    let players = [],
-        i = 0
+    global.players = []
+    let i = 0
+    msg.member.voice.channel.join()
     msg.member.voice.channel.members.forEach((member) => {
         if (!member.user.bot) {
             let nick
@@ -18,15 +14,16 @@ const buzzer = async(msg) => {
             } else {
                 nick = member.nickname
             }
-            players.push(new Player(nick, colors[i]))
+            global.players.push(new Player(member.id, nick, colors[i]))
             i++
         }
     })
-
-    let m = await msg.channel.send(newMessage(players));
-    for (let player of players) {
+    let m = await msg.channel.send(buzzerMsg(global.players));
+    for (let player of global.players) {
         await m.react(player.color.utf8)
     }
-
 }
-module.exports = buzzer
+
+module.exports = {
+    buzzer
+}

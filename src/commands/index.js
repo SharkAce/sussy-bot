@@ -12,14 +12,15 @@ class Board {
     }
     add(name, func, help) {
         this.data.push(new Command(name, func, help))
-
     }
 }
 
 let commands = new Board();
-const buzzer = require('./buzzer.js')
 
-
+const { buzzer } = require('./buzzer.js');
 commands.add(["!buzzer", "!emergency meeting"], buzzer);
+
+const { endBuzzer } = require('./endBuzzer.js');
+commands.add(["!end"], endBuzzer)
 
 module.exports = commands
