@@ -3,7 +3,6 @@ const env = require('dotenv').config().parsed;
 
 module.exports = {
     endBuzzer: (msg) => {
-
         function Counter(array) {
             array.forEach(val => this[val] = (this[val] || 0) + 1);
         }
@@ -17,17 +16,22 @@ module.exports = {
             let ejectedPlayer = global.players.find(obj => obj.color.name == selKeys[0]);
             console.log(`${ejectedPlayer.nick} was ejected`);
             global.msg.channel.send(ejectMsg(ejectedPlayer));
-            global.caller.voice.channel.members.forEach((member) => {
-                if (member.id == ejectedPlayer.id) {
-                    member.voice.setChannel(global.msg.guild.channels.cache.get(env.JAIL_CHANNEL))
-                }
+            let vc = global.msg.member.voice.channel
+            vc.join().then(connection => {
+                const dispatcher = connection.play('./sounds/Bonk.mp3');
+                dispatcher.on("finish", () => {
+                    setTimeout(() => {
+                        vc.members.forEach((member) => {
+                            if (member.id == ejectedPlayer.id) {
+                                member.voice.setChannel(
+                                    global.msg.guild.channels.cache.get(env.JAIL_CHANNEL)
+                                )
+                                vc.leave()
+                            }
+                        })
+                    }, 1000);
+                })
             })
         }
-        global.msg.member.voice.channel.join().then(connection => {
-            const dispatcher = connection.play('./sounds/Bonk.mp3');
-            dispatcher.on("finish", () => {
-                global.msg.member.voice.channel.leave()
-            })
-        })
     }
 }
