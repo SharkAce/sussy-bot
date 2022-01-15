@@ -16,10 +16,10 @@ module.exports = {
             .setImage('https://guides.gamepressure.com/among-us/gfx/word/199189343.jpg')
             .setTimestamp()
     },
-    ejectMsg: (ejectedPlayer) => {
+    ejectMsg: (bonkedUser) => {
         return new MessageEmbed()
-            .setColor(ejectedPlayer.color.hex)
-            .setTitle(`${ejectedPlayer.nick} has been ejected.`)
+            .setColor(bonkedUser.color.hex)
+            .setTitle(`${bonkedUser.nick} has been ejected.`)
             .setThumbnail('https://ih1.redbubble.net/image.1938982133.2116/pp,840x830-pad,1000x1000,f8f8f8.jpg')
     }
 }

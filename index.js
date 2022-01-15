@@ -21,8 +21,9 @@ bot.on('message', async(msg) => {
     global.msg = msg
     global.caller = msg.member
     for (let i = 0; i < keys.data.length; i++) {
-        if (keys.data[i].name.indexOf(msg.content) != -1) {
-            keys.data[i].func(msg, options = {})
+        let words = msg.content.split(' ')
+        if (keys.data[i].name.indexOf(words[0]) != -1) {
+            keys.data[i].func(msg, words)
         };
     };
 });

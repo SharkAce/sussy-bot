@@ -2,7 +2,9 @@ const colors = require('../colors.js')
 const { buzzerMsg } = require('../message.js')
 const Player = require('../playerClass.js')
 
-const buzzer = async(msg) => {
+const buzzer = async(msg, args) => {
+    args[1] == undefined ? global.timer = 600000 : global.timer = parseInt(args[1] * 1000)
+
     global.players = []
     let i = 0
     msg.member.voice.channel.join()

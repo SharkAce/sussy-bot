@@ -23,4 +23,7 @@ commands.add(["!buzzer", "!emergency meeting"], buzzer);
 const { endBuzzer } = require('./endBuzzer.js');
 commands.add(["!end"], endBuzzer)
 
+const { bonk } = require('./bonk.js')
+commands.add(["!bonk"], bonk)
+
 module.exports = commands
