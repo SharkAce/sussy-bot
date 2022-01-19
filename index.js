@@ -1,6 +1,6 @@
 const env = require('dotenv').config().parsed;
 const { Client, Intents, Message, MessageReaction } = require('discord.js');
-const keys = require('./src/commands/index.js');
+const board = require('./src/commands/index.js');
 const colors = require('./src/colors.js')
 const message = require('./src/message.js');
 const newReaction = require('./src/newReaction.js');
@@ -20,10 +20,10 @@ bot.on('ready', () => {
 bot.on('message', async(msg) => {
     global.msg = msg
     global.caller = msg.member
-    for (let i = 0; i < keys.data.length; i++) {
-        let words = msg.content.split(' ')
-        if (keys.data[i].name.indexOf(words[0]) != -1) {
-            keys.data[i].func(msg, words)
+    for (let i = 0; i < board.data.length; i++) {
+        let args = msg.content.split(' ')
+        if (board.data[i].name.indexOf(args[0]) != -1) {
+            board.data[i].func(msg, args)
         };
     };
 });

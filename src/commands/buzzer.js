@@ -1,13 +1,20 @@
+const { VoiceChannel } = require('discord.js')
 const colors = require('../colors.js')
 const { buzzerMsg } = require('../message.js')
 const Player = require('../playerClass.js')
 
-const buzzer = async(msg, args) => {
+module.exports = async(msg, args) => {
     args[1] == undefined ? global.timer = 600000 : global.timer = parseInt(args[1] * 1000)
 
     global.players = []
+    try {
+        msg.member.voice.channel.join()
+    } catch (err) {
+        console.log(err.message)
+        global.msg.channel.send({ content: `Error : Could not connect to the vc`, code: 'arm' })
+        return
+    }
     let i = 0
-    msg.member.voice.channel.join()
     msg.member.voice.channel.members.forEach((member) => {
         if (!member.user.bot) {
             let nick
@@ -20,12 +27,15 @@ const buzzer = async(msg, args) => {
             i++
         }
     })
+    if (global.players.length <= 1) {
+        global.msg.channel.send({ content: `Error : Not enough users in the vc.`, code: 'arm' })
+        msg.member.voice.channel.leave()
+        return
+    }
+
+
     let m = await msg.channel.send(buzzerMsg(global.players));
     for (let player of global.players) {
         await m.react(player.color.utf8)
     }
-}
-
-module.exports = {
-    buzzer
 }

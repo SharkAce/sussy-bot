@@ -16,14 +16,19 @@ class Board {
 }
 
 let commands = new Board();
+let requireDir = require('require-dir')
+let data = requireDir('./')
 
-const { buzzer } = require('./buzzer.js');
-commands.add(["!buzzer", "!emergency meeting"], buzzer);
+/* --Create commands here-- */
 
-const { endBuzzer } = require('./endBuzzer.js');
-commands.add(["!end"], endBuzzer)
 
-const { bonk } = require('./bonk.js')
-commands.add(["!bonk"], bonk)
+commands.add(["!buzzer", "!emergency meeting"], data.buzzer, "Start an emergency meeting");
+
+commands.add(["!end"], data.endBuzzer, "End the current emergency meeting")
+
+commands.add(["!bonk"], data.bonk, "Use your powers to bonk someone without democracy")
+
+/* --End-- */
+
 
 module.exports = commands
