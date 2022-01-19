@@ -1,5 +1,4 @@
-const { ejectMsg } = require('../message.js');
-const env = require('dotenv').config().parsed;
+const bonk = require('./bonk.js')
 
 module.exports = (msg) => {
     try {
@@ -18,28 +17,7 @@ module.exports = (msg) => {
             vc.leave()
         } else {
             let bonkedUser = global.players.find(obj => obj.color.name == selKeys[0]);
-            console.log(`${bonkedUser.nick} was ejected`);
-            global.msg.channel.send(ejectMsg(bonkedUser));
-            vc.join().then(connection => {
-                const dispatcher = connection.play('./sounds/Bonk.mp3');
-                dispatcher.on("finish", () => {
-                    setTimeout(() => {
-                        vc.members.forEach((member) => {
-                            if (member.id == bonkedUser.id) {
-                                member.voice.setChannel(
-                                    global.msg.guild.channels.cache.get(env.JAIL_CHANNEL)
-                                )
-                                vc.leave()
-                                console.log('timer as started')
-                                setTimeout(() => {
-                                    global.msg.channel.send({ content: `You may now leave the Horny Jail.`, code: "txt" })
-                                    member.voice.setChannel(vc)
-                                }, global.timer)
-                            }
-                        })
-                    }, 1000);
-                })
-            })
+            bonk(bonkedUser)
         }
     } catch (err) {
         console.log(err.message)

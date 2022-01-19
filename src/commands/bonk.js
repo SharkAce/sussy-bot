@@ -1,4 +1,10 @@
-module.exports = (bonkedUser) => {
+const { ejectMsg } = require('../message.js');
+const env = require('dotenv').config().parsed;
+
+module.exports = (bonkedUser, args = undefined) => {
+    if (args != undefined) {
+        return
+    }
     console.log(`${bonkedUser.nick} was ejected`);
     global.msg.channel.send(ejectMsg(bonkedUser));
     let vc = global.msg.member.voice.channel

@@ -1,6 +1,6 @@
 const { VoiceChannel } = require('discord.js')
-const colors = require('../colors.js')
 const { buzzerMsg } = require('../message.js')
+const colors = require('../colors.js')
 const Player = require('../playerClass.js')
 
 module.exports = async(msg, args) => {
@@ -31,11 +31,13 @@ module.exports = async(msg, args) => {
         global.msg.channel.send({ content: `Error : Not enough users in the vc.`, code: 'arm' })
         msg.member.voice.channel.leave()
         return
-    }
-
-
-    let m = await msg.channel.send(buzzerMsg(global.players));
-    for (let player of global.players) {
-        await m.react(player.color.utf8)
+    } else if (global.players.length > colors.length) {
+        global.msg.channel.send({ content: `Error : Too many users in the vc.`, code: 'arm' })
+        msg.member.voice.channel.leave()
+    } else {
+        let m = await msg.channel.send(buzzerMsg(global.players));
+        for (let player of global.players) {
+            await m.react(player.color.utf8)
+        }
     }
 }

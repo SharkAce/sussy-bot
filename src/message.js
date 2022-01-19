@@ -10,7 +10,12 @@ module.exports = {
         return new MessageEmbed()
             .setColor('#ff0000')
             .setTitle('Emergency Meeting')
-            .setDescription('The tension is tense between the sussy\nbakas. You are tasked to decide who will\nbe the next among us to go spend\nsome time in the infamous Horny Jail.\nGood Luck! ඞ')
+            .setDescription(
+                'The tension is tense between the sussy\n' +
+                'bakas. You are tasked to decide who\n' +
+                'will be the next among us to go spend\n' +
+                'some time in the infamous Horny Jail.\n' +
+                'Good Luck! ඞ')
             .setThumbnail('https://static.wikia.nocookie.net/among-us-wiki/images/b/b5/MIRA_HQ_Emergency_Button.png/revision/latest/scale-to-width-down/250?cb=20210206205127')
             .addFields({ name: 'Who is the impostor?', value: playerInfo }, )
             .setImage('https://guides.gamepressure.com/among-us/gfx/word/199189343.jpg')
