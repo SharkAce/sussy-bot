@@ -39,7 +39,6 @@ module.exports = [{
         emoji: ":brown_circle:",
         utf8: "🟫",
         hex: "#964b00"
-
     },
     {
         name: "black",

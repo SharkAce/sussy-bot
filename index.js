@@ -14,7 +14,6 @@ global.players = []
 global.result = []
 
 bot.on('ready', () => {
-    //insert init code
 });
 
 bot.on('message', async(msg) => {
