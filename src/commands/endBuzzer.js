@@ -14,11 +14,11 @@ module.exports = (msg) => {
             if (selKeys.length != 0) {
                 global.msg.channel.send({ content: `It's a tie between ${selKeys[0]} and ${selKeys[1]}.`, code: "txt" })
             }
+          vc.leave()
         } else {
             let bonkedUser = global.players.find(obj => obj.color.name == selKeys[0]);
             bonk(bonkedUser)
         }
-        vc.leave()
 
 
     } catch (err) {
